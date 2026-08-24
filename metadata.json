@@ -1,0 +1,6 @@
+{
+  "name": "DigiVault - Digital Products Marketplace",
+  "description": "Pinterest & Flipkart inspired eCommerce platform for digital products, wallpapers, WhatsApp statuses, Canva templates, posters, and instant downloads with Razorpay payment flow.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,103 @@
+{
+  "entities": {
+    "userProfile": {
+      "title": "User Profile",
+      "description": "User account information, role, preferences, and purchases",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "User identifier" },
+        "name": { "type": "string", "description": "Full name" },
+        "email": { "type": "string", "format": "email", "description": "Email address" },
+        "phone": { "type": "string", "description": "Phone number" },
+        "avatar": { "type": "string", "description": "DiceBear avatar data URI or URL" },
+        "isProMember": { "type": "boolean", "description": "Whether user has active PixelPass" },
+        "proPlanName": { "type": "string", "description": "Name of pro plan" },
+        "proExpiryDate": { "type": "string", "description": "Expiration date for pro pass" },
+        "joinedDate": { "type": "string", "description": "Date account was created" },
+        "purchasedProductIds": {
+          "type": "array",
+          "description": "Array of purchased product IDs"
+        },
+        "wishlistProductIds": {
+          "type": "array",
+          "description": "Array of bookmarked product IDs"
+        },
+        "downloadHistory": {
+          "type": "array",
+          "description": "History of downloaded digital assets"
+        },
+        "orders": {
+          "type": "array",
+          "description": "Orders placed by user"
+        }
+      },
+      "required": ["id", "name", "email"]
+    },
+    "product": {
+      "title": "Digital Product",
+      "description": "Digital drop item listed on DigiVault marketplace",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Product ID" },
+        "title": { "type": "string", "description": "Product title" },
+        "category": { "type": "string", "description": "Product category" },
+        "price": { "type": "number", "description": "Selling price in INR" },
+        "originalPrice": { "type": "number", "description": "Original strike-through price" },
+        "rating": { "type": "number", "description": "Average user rating" },
+        "downloadsCount": { "type": "number", "description": "Total download count" },
+        "previewUrl": { "type": "string", "description": "Preview visual image URL" },
+        "tags": { "type": "array", "description": "Search and filter tags" }
+      },
+      "required": ["id", "title", "category", "price"]
+    },
+    "order": {
+      "title": "Order Record",
+      "description": "Payment and order transaction completed through Razorpay",
+      "type": "object",
+      "properties": {
+        "orderId": { "type": "string", "description": "Unique order identifier" },
+        "userId": { "type": "string", "description": "Purchasing user identifier" },
+        "customerEmail": { "type": "string", "format": "email", "description": "Customer email" },
+        "customerName": { "type": "string", "description": "Customer name" },
+        "totalAmount": { "type": "number", "description": "Total INR paid" },
+        "paymentMethod": { "type": "string", "description": "Payment gateway method" },
+        "paymentId": { "type": "string", "description": "Razorpay transaction ID" },
+        "date": { "type": "string", "description": "Transaction timestamp" },
+        "invoiceNumber": { "type": "string", "description": "Generated invoice code" }
+      },
+      "required": ["orderId", "totalAmount", "paymentId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "entity": "userProfile",
+      "description": "User profile documents",
+      "security": {
+        "read": "true",
+        "create": "true",
+        "update": "true",
+        "delete": "false"
+      }
+    },
+    "/products/{productId}": {
+      "entity": "product",
+      "description": "Digital products catalog",
+      "security": {
+        "read": "true",
+        "create": "true",
+        "update": "true",
+        "delete": "true"
+      }
+    },
+    "/orders/{orderId}": {
+      "entity": "order",
+      "description": "Completed purchase transactions",
+      "security": {
+        "read": "true",
+        "create": "true",
+        "update": "false",
+        "delete": "false"
+      }
+    }
+  }
+}
